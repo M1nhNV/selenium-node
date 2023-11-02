@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "test": "mocha --timeout 10000"
+  },
+  "mocha": {
+    "spec": "src/test/testcase"
+  },
+  "type": "module",
+  "devDependencies": {
+    "mocha": "^10.2.0",
+    "selenium-webdriver": "^4.14.0"
+  }
+}
