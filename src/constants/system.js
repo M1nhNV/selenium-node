@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://signing.dev.jinjer.info/'
+export const BASE_URL = 'https://www.selenium.dev/selenium/web/web-form.html'
