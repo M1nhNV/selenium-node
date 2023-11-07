@@ -1,0 +1,13 @@
+{
+  "spec": "src/resources/test-cases/**/*.spec.js",
+  "timeout": "30000",
+  "require": "src/core/commons/hooks.js",
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportFilename=[status]_[datetime]-[name]-report",
+    "timestamp=longDate",
+    "charts=true",
+    "autoOpen=true",
+    "overwrite=true"
+  ]
+}
