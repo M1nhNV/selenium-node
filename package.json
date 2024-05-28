@@ -14,15 +14,21 @@
     "selenium-webdriver": "^4.14.0"
   },
   "imports": {
-    "#root/*": ".",
     "#src/*": "./src/*",
     "#constants/*": "./src/constants/*",
+    "#settings": "./src/constants/settings.js",
+    "#factories": "./src/core/factories/index.js",
+    "#runner": "./src/core/factories/runner.js",
+    "#report": "./src/core/factories/report.js",
+    "#dataFiles": "./src/resources/data/index.js",
+    "#globalActions": "./src/object-repository/commons/page-actions.js",
     "#core/*": "./src/core/*",
     "#adapter/*": "./src/core/adapter/*",
     "#factories/*": "./src/core/factories/*",
     "#utilities/*": "./src/core/utilities/*",
-    "#driver-base-action": "./src/core/commons/driver-base-actions.js",
-    "#runner-base-action": "./src/core/commons/test-runner-base-actions.js"
+    "#pageAction/*": "./src/object-repository/commons/*",
+    "#xpath/*": "./src/object-repository/xpath/*",
+    "#messages": "./src/constants/messages/index.js"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
