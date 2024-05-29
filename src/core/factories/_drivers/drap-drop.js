@@ -1,4 +1,4 @@
-import { findElementByXpath } from '#factories';
+import { findElementByXpath } from "#factories";
 
 async function dragDropOnElementByXpath(driver, xpathTarget, xpathFinish) {
   const start = await findElementByXpath(driver, xpathTarget);
@@ -18,4 +18,8 @@ async function getRectElementByXpath(driver, xpath) {
   return await element.getRect();
 }
 
-export { dragDropOnElementByXpath, dragDropOffsetByXpath, getRectElementByXpath };
+export {
+  dragDropOnElementByXpath,
+  dragDropOffsetByXpath,
+  getRectElementByXpath,
+};

@@ -1,7 +1,12 @@
-import { Builder, Capabilities } from 'selenium-webdriver';
-import * as Chrome from 'selenium-webdriver/chrome.js';
-import { DEFAULT_TIME_WAITING, ABSOLUTE_PATH_RESULT_DIR, TEST_STATE, DEFAULT_BROWSER_SETTINGS } from '#settings';
-import { writeImageFile } from '#factories';
+import { Builder, Capabilities } from "selenium-webdriver";
+import * as Chrome from "selenium-webdriver/chrome.js";
+import {
+  DEFAULT_TIME_WAITING,
+  ABSOLUTE_PATH_RESULT_DIR,
+  TEST_STATE,
+  DEFAULT_BROWSER_SETTINGS,
+} from "#settings";
+import { writeImageFile } from "#factories";
 
 async function settingOptionsForBrowser(driver, options) {
   const browserOptions = { ...DEFAULT_BROWSER_SETTINGS, ...options };
@@ -20,7 +25,10 @@ async function loadAndDestroyDriver(callback, options) {
   });
 
   afterEach(async function () {
-    if (process.env.ALLOW_SCREEN_SHORT === 'true' && this.currentTest.state === TEST_STATE.FAILED) {
+    if (
+      process.env.ALLOW_SCREEN_SHORT === "true" &&
+      this.currentTest.state === TEST_STATE.FAILED
+    ) {
       await takeScreenShort(driver, this.currentTest.title);
     }
   });
@@ -32,7 +40,7 @@ async function loadAndDestroyDriver(callback, options) {
 
 async function setHeadless(builder) {
   const options = new Chrome.Options();
-  builder.setChromeOptions(options.addArguments('--headless=new'));
+  builder.setChromeOptions(options.addArguments("--headless=new"));
 
   return builder;
 }
@@ -41,20 +49,20 @@ async function setCapabilities(builder) {
   const chromeCapabilities = Capabilities.chrome();
   const chromeOptions = {
     prefs: {
-      'download.default_directory': DEFAULT_BROWSER_SETTINGS.downloadPath,
+      "download.default_directory": DEFAULT_BROWSER_SETTINGS.downloadPath,
     },
   };
 
-  chromeCapabilities.set('goog:chromeOptions', chromeOptions);
+  chromeCapabilities.set("goog:chromeOptions", chromeOptions);
   builder.withCapabilities(chromeCapabilities);
 
   return builder;
 }
 
 async function getBuilder() {
-  let builder = new Builder().forBrowser('chrome');
+  let builder = new Builder().forBrowser("chrome");
 
-  if (process.env.CHROME_SETTING_HEADLESS === 'true') {
+  if (process.env.CHROME_SETTING_HEADLESS === "true") {
     builder = await setHeadless(builder);
   }
 
@@ -76,11 +84,11 @@ async function openUrl(driver, url) {
 }
 
 async function openNewTab(driver) {
-  return await driver.switchTo().newWindow('tab');
+  return await driver.switchTo().newWindow("tab");
 }
 
 async function openNewWindow(driver) {
-  return await driver.switchTo().newWindow('window');
+  return await driver.switchTo().newWindow("window");
 }
 
 async function switchToTab(driver, tabIndex) {
@@ -111,8 +119,8 @@ async function processForceLogout(driver) {
   const cookies = await driver.manage().getCookies();
 
   for (const cookie of cookies) {
-    if (cookie.name === 'auth_token') {
-      await driver.manage().deleteCookie('auth_token');
+    if (cookie.name === "auth_token") {
+      await driver.manage().deleteCookie("auth_token");
     }
   }
 }
@@ -131,7 +139,7 @@ async function takeScreenShort(driver, name) {
     const absolutePath = `${ABSOLUTE_PATH_RESULT_DIR}/images`;
     await writeImageFile(absolutePath, name, img);
   } catch (error) {
-    console.log('takeScreenShort', error);
+    console.log("takeScreenShort", error);
   }
 }
 async function getRefresh(driver) {
@@ -150,7 +158,7 @@ async function closeAllTabsExceptFirst(driver) {
     }
     await driver.switchTo().window(windowHandles[0]);
   } catch (error) {
-    console.log('closeAllTabsExceptFirst =>>', error);
+    console.log("closeAllTabsExceptFirst =>>", error);
   }
 }
 

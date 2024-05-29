@@ -1,4 +1,4 @@
-import filter from 'lodash/filter.js';
+import filter from "lodash/filter.js";
 
 async function isLessOrEqual(data = [], param) {
   return data.every((n) => n <= param);
@@ -12,7 +12,7 @@ function randomNumber(maxNumber = 1) {
   return Math.floor(Math.random() * maxNumber) + 1;
 }
 
-function filterByKey(data = [], param = [], key = 'label') {
+function filterByKey(data = [], param = [], key = "label") {
   return filter(data, (res) => param.includes(res[key]));
 }
 

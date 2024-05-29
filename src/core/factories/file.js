@@ -1,15 +1,18 @@
-import { readFile, writeFile, appendFile, existsSync } from 'fs/promises';
-import { resolve } from 'path';
+import { existsSync } from "fs";
+import { readFile, writeFile, appendFile } from "fs/promises";
+import { resolve } from "path";
 
-import { ABSOLUTE_PATH_DOWNLOAD_DIR, CONTAINS_DATA_DIR } from '#constants/settings.js';
-import isArray from 'lodash/isArray.js';
-import has from 'lodash/has.js';
+import {
+  ABSOLUTE_PATH_DOWNLOAD_DIR,
+  CONTAINS_DATA_DIR,
+} from "#constants/settings.js";
+import isArray from "lodash/isArray.js";
+import has from "lodash/has.js";
 
-import { isExistDir, getAllFilesInDir } from '#factories';
-import { readCSVFile, readJPCSV, filterCsvCol } from './_files/csv.js';
-import { writeJsonFile } from './_files/json.js';
-import { writeImageFile } from './_files/image.js';
-
+import { isExistDir, getAllFilesInDir } from "#factories";
+import { readCSVFile, readJPCSV, filterCsvCol } from "./_files/csv.js";
+import { writeJsonFile } from "./_files/json.js";
+import { writeImageFile } from "./_files/image.js";
 
 const getFilePath = (path, isRoot) => {
   if (isRoot) {
@@ -19,7 +22,7 @@ const getFilePath = (path, isRoot) => {
   return resolve(CONTAINS_DATA_DIR + path);
 };
 
-async function readJsonFile(filePath, fileType = 'utf-8') {
+async function readJsonFile(filePath, fileType = "utf-8") {
   try {
     const fileContent = await readFile(filePath, fileType);
     return JSON.parse(fileContent);
@@ -30,31 +33,38 @@ async function readJsonFile(filePath, fileType = 'utf-8') {
 
 async function readExcelFile() {
   try {
-    console.log('read excel file');
+    console.log("read excel file");
   } catch (error) {
     return {};
   }
 }
 
-const driverGetFile = (type = 'json') => {
+const driverGetFile = (type = "json") => {
   switch (type) {
-    case 'json':
+    case "json":
       return readJsonFile;
-    case 'csv':
+    case "csv":
       return readCSVFile;
-    case 'xlxs':
+    case "xlxs":
       return readExcelFile;
     default:
       return readJsonFile;
   }
 };
 
-const getInfoFromFile = async (path, params = [], fileType = 'json', isReport = false) => {
+const getInfoFromFile = async (
+  path,
+  params = [],
+  fileType = "json",
+  isReport = false,
+) => {
   if (isArray(params)) {
     const fc = driverGetFile(fileType);
     const data = await fc(getFilePath(path, isReport));
     const rs = {};
-    params.map((key) => (has(data, key) ? (rs[key] = data[key]) : (rs[key] = null)));
+    params.map((key) =>
+      has(data, key) ? (rs[key] = data[key]) : (rs[key] = null),
+    );
     return rs;
   }
 
@@ -75,23 +85,23 @@ const getLinkFileFromDownloadFolder = () => {
     limit++;
   }
 
-  return files[0] ? `${ABSOLUTE_PATH_DOWNLOAD_DIR}/${files[0]}` : '';
+  return files[0] ? `${ABSOLUTE_PATH_DOWNLOAD_DIR}/${files[0]}` : "";
 };
 
 const makeCopyFileUrl = (fileUrl) => {
-  let fileSplit = fileUrl.split('.');
+  let fileSplit = fileUrl.split(".");
   return `${fileSplit[0]}_copy.${fileSplit.pop()}`;
 };
 
-const writeToFile = async (absolutePath = '', content = '') => {
+const writeToFile = async (absolutePath = "", content = "") => {
   try {
     if (!isExistDir(absolutePath)) {
-      await writeFile(absolutePath, content, 'utf-8');
+      await writeFile(absolutePath, content, "utf-8");
     } else {
-      await appendFile(absolutePath, content, 'utf-8');
+      await appendFile(absolutePath, content, "utf-8");
     }
   } catch (error) {
-    console.error('Error writing to file:', error.message);
+    console.error("Error writing to file:", error.message);
   }
 };
 

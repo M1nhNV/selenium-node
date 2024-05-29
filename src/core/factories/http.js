@@ -1,13 +1,13 @@
-import Axios from 'axios';
-import FormData from 'form-data';
-import has from 'lodash/has.js';
-Axios.defaults.baseURL = 'https://slack.com/api';
+import Axios from "axios";
+import FormData from "form-data";
+import has from "lodash/has.js";
+Axios.defaults.baseURL = "https://slack.com/api";
 
 export function makeRequest(params = {}) {
   return {
     params,
     headers: {
-      'Content-Type': 'application/json; charset=utf-8',
+      "Content-Type": "application/json; charset=utf-8",
       Authorization: `Bearer ${process.env.SLACK_TOKEN}`,
     },
   };
@@ -15,7 +15,7 @@ export function makeRequest(params = {}) {
 
 export const headersUpload = {
   headers: {
-    'Content-Type': 'multipart/form-data',
+    "Content-Type": "multipart/form-data",
     Authorization: `Bearer ${process.env.SLACK_TOKEN}`,
   },
 };
@@ -79,7 +79,7 @@ export default {
   },
   postUpload(path, files = [], params = {}) {
     const formData = getFormData(files, params);
-    formData.append(`_method`, 'POST');
+    formData.append(`_method`, "POST");
 
     return handleResponse(Axios.post(path, formData, headersUpload));
   },

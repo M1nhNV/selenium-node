@@ -4,7 +4,7 @@ export const getRelativePath = (link) => {
     return match[0];
   }
 
-  return '';
+  return "";
 };
 
 export const getTestCasePath = (str) => {
@@ -12,16 +12,16 @@ export const getTestCasePath = (str) => {
     const match = str.match(/\/test-cases\/(.*)/);
     return match[1];
   } catch (e) {
-    return '';
+    return "";
   }
 };
 
 export const getPathIncludeTestCase = (str) => {
   try {
-    const reg = new RegExp('\\/test-cases\\/([^\\\\]+)\\/');
+    const reg = new RegExp("\\/test-cases\\/([^\\\\]+)\\/");
     const match = str.match(reg);
     return match[1];
   } catch (e) {
-    return '';
+    return "";
   }
 };

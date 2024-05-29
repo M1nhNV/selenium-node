@@ -3,9 +3,12 @@ import {
   findElementsByXpath,
   findElementsClassName,
   findElementByXpath,
-} from '#core/factories/index.js';
-import { Select } from 'selenium-webdriver';
-import { size, isArray, uniq, max} from 'lodash'
+} from "#core/factories/index.js";
+import { Select } from "selenium-webdriver";
+import isArray from "lodash/isArray.js";
+import max from "lodash/max.js";
+import uniq from "lodash/uniq.js";
+import size from "lodash/size.js";
 
 const _getSelectedOptions = async (selectElements, index, data = []) => {
   const select = new Select(selectElements[index]);
@@ -33,7 +36,7 @@ const getValueSelectedSelectByXpath = async (driver, xpath) => {
   const select = new Select(selectElement);
 
   const firstOption = await select.getFirstSelectedOption();
-  return firstOption.getAttribute('value');
+  return firstOption.getAttribute("value");
 };
 
 const getInnerHTMLSelectedSelectByXpath = async (driver, xpath) => {
@@ -41,7 +44,7 @@ const getInnerHTMLSelectedSelectByXpath = async (driver, xpath) => {
   const select = new Select(selectElement);
 
   const firstOption = await select.getFirstSelectedOption();
-  return firstOption.getAttribute('innerHTML');
+  return firstOption.getAttribute("innerHTML");
 };
 
 const getInnerTextsByXpath = async (driver, xpath) => {
@@ -53,7 +56,7 @@ const getInnerTextsByXpath = async (driver, xpath) => {
 
   const texts = [];
   for (const el of els) {
-    texts.push(await el.getAttribute('innerText'));
+    texts.push(await el.getAttribute("innerText"));
   }
 
   return texts;
@@ -64,7 +67,9 @@ const getMaxValueSelectByXpath = async (driver, xpath) => {
   const select = new Select(selectElement);
 
   const options = await select.getOptions();
-  const value = await Promise.all(options.map(async (option) => Number(await option.getAttribute('value'))));
+  const value = await Promise.all(
+    options.map(async (option) => Number(await option.getAttribute("value"))),
+  );
 
   return max(value);
 };
@@ -91,8 +96,12 @@ const getAllSelectedOptionsValueByXpath = async (driver, xpath) => {
     elements.map(async (el) => {
       const select = new Select(el);
       const firstOption = await select.getFirstSelectedOption();
-      return await executeScript(driver, 'return arguments[0].value;', firstOption);
-    })
+      return await executeScript(
+        driver,
+        "return arguments[0].value;",
+        firstOption,
+      );
+    }),
   );
 };
 
@@ -111,11 +120,13 @@ const getMultiSelectOptionsTextByXpath = async (driver, locator) => {
       const options = await select.getOptions();
       let rowData = [];
       if (isArray(options)) {
-        rowData = await Promise.all(options.map(async (option) => await option.getText()));
+        rowData = await Promise.all(
+          options.map(async (option) => await option.getText()),
+        );
       }
 
       total.push(rowData);
-    })
+    }),
   );
 
   return total;
@@ -138,7 +149,7 @@ const getMultiSelectedOptionsTextByXpath = async (driver, locator) => {
       for (const index in options) {
         result.push(await options[index].getText());
       }
-    })
+    }),
   );
 
   return result;
@@ -156,7 +167,9 @@ const getAllOptionsTextSelectByXpath = async (driver, xpath) => {
   const options = await select.getOptions();
 
   if (isArray(options)) {
-    return await Promise.all(options.map(async (option) => await option.getText()));
+    return await Promise.all(
+      options.map(async (option) => await option.getText()),
+    );
   }
 
   return [];
@@ -180,7 +193,11 @@ const getAllSelectedOptionsByClassName = async (driver, className) => {
   }
 };
 
-const getAllSelectedOptionsByXpath = async (driver, xpath, optionsLength = 2) => {
+const getAllSelectedOptionsByXpath = async (
+  driver,
+  xpath,
+  optionsLength = 2,
+) => {
   try {
     const selectElements = await findElementsByXpath(driver, xpath);
     if (!selectElements.length) {
@@ -220,7 +237,7 @@ async function getTextSelectedSelectByXpath(driver, xpath) {
     const firstOption = await select.getFirstSelectedOption();
     return firstOption.getText();
   } catch {
-    return '';
+    return "";
   }
 }
 

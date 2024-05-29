@@ -1,4 +1,4 @@
-import chai from 'chai';
+import chai from "chai";
 
 // For more information https://www.chaijs.com/api/assert/#method_assert
 const assert = chai.assert;
@@ -95,12 +95,12 @@ export const notSameDeepOrderedMembers = (haystack = [], needle = []) => {
   return assert.notSameDeepOrderedMembers(haystack, needle);
 };
 
-export const textMatch = (haystack = '', needle) => {
-  const regex = new RegExp('/^.*' + haystack + '$/');
+export const textMatch = (haystack = "", needle) => {
+  const regex = new RegExp("/^.*" + haystack + "$/");
   return regex.test(needle);
 };
 
-export const textMatchAll = (haystack = '', needle = []) => {
+export const textMatchAll = (haystack = "", needle = []) => {
   const result = needle.map((text) => textMatch(haystack, text));
   return !result.includes(false);
 };

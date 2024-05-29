@@ -1,5 +1,5 @@
-import { join } from 'path';
-import { makeAbsoluteDir } from '#factories';
+import { join } from "path";
+import { makeAbsoluteDir } from "#factories";
 
 /**
  * DIRECTORIES SETTINGS
@@ -7,10 +7,10 @@ import { makeAbsoluteDir } from '#factories';
  */
 const BASE_PATH = process.env.APP_PATH ? process.env.APP_PATH : process.cwd();
 
-const CONTAINS_DATA_DIR = join('src', 'resources', 'data');
+const CONTAINS_DATA_DIR = join("src", "resources", "data");
 
-const RESULTS_DIR = 'results';
-const DOWNLOAD_DIR = 'downloadFiles';
+const RESULTS_DIR = "results";
+const DOWNLOAD_DIR = "downloadFiles";
 const ABSOLUTE_PATH_DOWNLOAD_DIR = makeAbsoluteDir(DOWNLOAD_DIR);
 const ABSOLUTE_PATH_RESULT_DIR = makeAbsoluteDir(RESULTS_DIR);
 
@@ -20,15 +20,15 @@ const ABSOLUTE_PATH_RESULT_DIR = makeAbsoluteDir(RESULTS_DIR);
  */
 
 const EMAIL_TYPE = {
-  GMAIL: 'gmail',
-  YOPMAIL: 'yopmail',
+  GMAIL: "gmail",
+  YOPMAIL: "yopmail",
 };
 
 // for mocha status
 const TEST_STATE = {
-  PASS: 'passed',
-  FAILED: 'failed',
-  UNDEFINED: 'undefined',
+  PASS: "passed",
+  FAILED: "failed",
+  UNDEFINED: "undefined",
 };
 
 // Google Chrome setting download folder
@@ -44,11 +44,11 @@ const MAXIMUM_TIME_OUT = 3600000; // millisecond
  * DOMAIN SERVICE SETTINGS
  *
  */
-const EMAIL_ADDRESS = ''
+const EMAIL_ADDRESS = "";
 
 const SUB_DOMAIN = {
-  EMPLOYEE: 'employee',
-  ADMIN: 'admin',
+  EMPLOYEE: "employee",
+  ADMIN: "admin",
 };
 
 const MAX_PER_PAGE = 50;
@@ -69,5 +69,5 @@ export {
   MIN_PER_PAGE,
   BASE_PATH,
   SUB_DOMAIN,
-  MAXIMUM_TIME_OUT
+  MAXIMUM_TIME_OUT,
 };

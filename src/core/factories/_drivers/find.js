@@ -1,4 +1,4 @@
-import { By } from 'selenium-webdriver';
+import { By } from "selenium-webdriver";
 
 export const findElementById = async (driver, id) => {
   return await driver.findElement(By.id(id));

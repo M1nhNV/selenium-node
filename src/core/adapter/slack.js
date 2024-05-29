@@ -1,15 +1,20 @@
-import { getInfoFromFile, getPathFileReport, sumUpReport } from '#factories';
-import api from '#factories/http.js';
-import size from 'lodash/size.js';
-import { createReadStream } from 'fs';
+import { getInfoFromFile, getPathFileReport, sumUpReport } from "#factories";
+import api from "#factories/http.js";
+import size from "lodash/size.js";
+import { createReadStream } from "fs";
 
 let interVal = null;
 
 export const reportToSlackChanel = async () => {
   try {
     interVal = setInterval(async () => {
-      const pathFileReportJson = getPathFileReport('json');
-      const { stats } = await getInfoFromFile(pathFileReportJson, ['stats'], 'json', true);
+      const pathFileReportJson = getPathFileReport("json");
+      const { stats } = await getInfoFromFile(
+        pathFileReportJson,
+        ["stats"],
+        "json",
+        true,
+      );
       if (size(stats)) {
         clearInterval(interVal);
         return sumUpReport(stats);
@@ -20,7 +25,7 @@ export const reportToSlackChanel = async () => {
   }
 };
 
-export const pushMessagesToSlack = async (msgContent, threadId = '') => {
+export const pushMessagesToSlack = async (msgContent, threadId = "") => {
   try {
     const data = {
       channel: process.env.CHANNELS_ID,
@@ -28,16 +33,20 @@ export const pushMessagesToSlack = async (msgContent, threadId = '') => {
       thread_ts: threadId,
     };
 
-    const { ts } = await api.post('/chat.postMessage', data);
+    const { ts } = await api.post("/chat.postMessage", data);
     return {
       thread_ts: ts,
     };
   } catch (error) {
-    console.log('pushMessagesToSlack error ', error);
+    console.log("pushMessagesToSlack error ", error);
   }
 };
 
-export const pushMessagesWithFileToSlack = async (msgContent, filepath, threadId = '') => {
+export const pushMessagesWithFileToSlack = async (
+  msgContent,
+  filepath,
+  threadId = "",
+) => {
   try {
     const data = {
       channels: process.env.CHANNELS_ID,
@@ -52,19 +61,19 @@ export const pushMessagesWithFileToSlack = async (msgContent, filepath, threadId
       },
     ];
 
-    const { ts } = await api.postUpload('/files.upload', files, data);
+    const { ts } = await api.postUpload("/files.upload", files, data);
 
     return {
       thread_ts: ts,
     };
   } catch (error) {
-    console.log('pushMessagesToSlack error ', error);
+    console.log("pushMessagesToSlack error ", error);
   }
 };
 
 export const getUserByEmail = async (params) => {
   try {
-    const { user } = await api.get('users.lookupByEmail', params);
+    const { user } = await api.get("users.lookupByEmail", params);
     return user;
   } catch (error) {
     return {};

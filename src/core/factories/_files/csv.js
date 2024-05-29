@@ -1,24 +1,24 @@
-import { addContext } from '#report';
-import encoding from 'encoding-japanese';
-import { readFile } from 'fs/promises';
-import { parse } from 'csv-parse/sync';
-import { stringify } from 'csv-stringify/sync';
-import Papa from 'papaparse';
-import size from 'lodash/size.js';
-import { makeCopyFileUrl, writeToFile } from '#factories';
+import { addContext } from "#report";
+import encoding from "encoding-japanese";
+import { readFile } from "fs/promises";
+import { parse } from "csv-parse/sync";
+import { stringify } from "csv-stringify/sync";
+import Papa from "papaparse";
+import size from "lodash/size.js";
+import { makeCopyFileUrl, writeToFile } from "#factories";
 
 async function readJPCSV(fileUrl) {
   return new Promise((resolve, reject) => {
     readFile(fileUrl, function (err, data) {
       if (err) {
-        addContext(this, 'Error reading file:' + err);
+        addContext(this, "Error reading file:" + err);
         reject(err);
         return;
       }
 
       const result = encoding.convert(new Uint8Array(data), {
-        to: 'unicode',
-        type: 'string',
+        to: "unicode",
+        type: "string",
       });
 
       resolve(result);
@@ -26,7 +26,7 @@ async function readJPCSV(fileUrl) {
   });
 }
 
-async function readCSVFile(link, fileType = 'utf-8') {
+async function readCSVFile(link, fileType = "utf-8") {
   try {
     const rows = await readFile(link, fileType);
     return await parse(rows, { columns: true, relax_quotes: true });
@@ -35,10 +35,10 @@ async function readCSVFile(link, fileType = 'utf-8') {
   }
 }
 
-const filterCsvCol = async (file, headers, newFileName = '') => {
+const filterCsvCol = async (file, headers, newFileName = "") => {
   let fileUrl = makeCopyFileUrl(file);
 
-  if (newFileName !== '') {
+  if (newFileName !== "") {
     fileUrl = newFileName;
   }
 

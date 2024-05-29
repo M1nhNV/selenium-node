@@ -1,7 +1,3 @@
-const getLinkResetPasswordFromGmail = () => {
+const getLinkResetPasswordFromGmail = () => {};
 
-}
-
-export {
-  getLinkResetPasswordFromGmail
-}
+export { getLinkResetPasswordFromGmail };

@@ -1,4 +1,4 @@
-import { Key } from 'selenium-webdriver';
+import { Key } from "selenium-webdriver";
 import {
   findElementsClassName,
   findElementByClassName,
@@ -7,10 +7,10 @@ import {
   findElementByName,
   sleep,
   findElementsByXpath,
-} from '#factories';
+  scrollToElement,
+} from "#factories";
 
-import { randomStringWithLength, scrollToElement, generateStringWithLength } from '#globalActions';
-import size from 'lodash/size.js';
+import size from "lodash/size.js";
 
 const _fillValue = async (input, value) => {
   await input.clear();
@@ -40,10 +40,14 @@ const fillValueByXpath = async (driver, xpath, value, isBlur = false) => {
 
 const fillEmojiByXpath = async (driver, xpath, value, isBlur = false) => {
   const input = await findElementByXpath(driver, xpath);
-  await driver.executeScript('arguments[0].value = arguments[1];', input, value);
+  await driver.executeScript(
+    "arguments[0].value = arguments[1];",
+    input,
+    value,
+  );
 
   if (isBlur) {
-    await driver.executeScript('arguments[0].blur()', input);
+    await driver.executeScript("arguments[0].blur()", input);
   }
 };
 
@@ -57,7 +61,7 @@ const fillValueByName = async (driver, name, value, isBlur = false) => {
 };
 
 const blurInput = async (driver, input) => {
-  await driver.executeScript('arguments[0].blur()', input);
+  await driver.executeScript("arguments[0].blur()", input);
 };
 
 const clearInputByXpath = async (driver, xpath) => {
@@ -103,27 +107,7 @@ async function enterInputByXpath(driver, xpath) {
   input.sendKeys(Key.ENTER);
 }
 
-async function fillAllValueByXpath(driver, xpath, length, type = '') {
-  try {
-    const elements = await findElementsByXpath(driver, xpath);
-    if (!elements.length) {
-      return [];
-    }
-    const data = [];
-    for (const element of elements) {
-      const value = type ? await generateStringWithLength(type, length) : await randomStringWithLength(length);
-      await scrollToElement(driver, element);
-      await sleep(driver, 0.5);
-      await _fillValue(element, value);
-      data.push(value);
-    }
-    return data;
-  } catch {
-    return [];
-  }
-}
-
-async function fillAllValueByXpathWithCharacter(driver, xpath, character = '') {
+async function fillAllValueByXpathWithCharacter(driver, xpath, character = "") {
   try {
     const elements = await findElementsByXpath(driver, xpath);
     if (!elements.length) {
@@ -151,7 +135,6 @@ export {
   clearAllInputElements,
   enterValueByXpath,
   enterInputByXpath,
-  fillAllValueByXpath,
   fillAllValueByXpathWithCharacter,
   clearAllInputByXpath,
 };

@@ -1,12 +1,19 @@
-import { existsSync, mkdir, readdirSync, unlinkSync, rmSync, lstatSync } from 'fs';
-import { resolve, join } from 'path';
-import { BASE_PATH } from '#settings';
+import {
+  existsSync,
+  mkdir,
+  readdirSync,
+  unlinkSync,
+  rmSync,
+  lstatSync,
+} from "fs";
+import { resolve, join } from "path";
+import { BASE_PATH } from "#settings";
 
 const isExistDir = (path) => {
   return existsSync(path);
 };
 
-const createDir = async (directoryPath = '') => {
+const createDir = async (directoryPath = "") => {
   try {
     await mkdir(directoryPath, { recursive: true }, () => {});
   } catch (error) {
@@ -39,4 +46,10 @@ const makeAbsoluteDir = (...folders) => {
   return join(resolve(BASE_PATH), ...folders);
 };
 
-export { createDir, isExistDir, getAllFilesInDir, clearDataInDir, makeAbsoluteDir };
+export {
+  createDir,
+  isExistDir,
+  getAllFilesInDir,
+  clearDataInDir,
+  makeAbsoluteDir,
+};

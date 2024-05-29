@@ -1,13 +1,19 @@
 {
   "spec": "src/resources/test-cases/**/*.spec.js",
-  "timeout": "30000",
-  "require": "src/core/commons/hooks.js",
+  "timeout": 60000,
+  "require": ["src/core/factories/runner.js", "mochawesome/register"],
   "reporter": "mochawesome",
+  "retries": 0,
+  "parallel": false,
+  "jobs": 5,
   "reporter-option": [
-    "reportFilename=[status]_[datetime]-[name]-report",
-    "timestamp=longDate",
+    "reportFilename=automation_report",
+    "timestamp=mm/dd/yyyy",
     "charts=true",
     "autoOpen=true",
-    "overwrite=true"
+    "overwrite=true",
+    "code=false",
+    "reportDir=results",
+    "reportPageTitle=Automation report"
   ]
 }

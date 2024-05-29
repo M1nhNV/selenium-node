@@ -1,16 +1,21 @@
-import size from 'lodash/size.js';
-import uniq from 'lodash/uniq.js';
-import { By, Key } from 'selenium-webdriver';
-export * from './_elements/select.js';
-export * from './_elements/input.js';
-export * from './_elements/radio.js';
-export * from './_elements/execute_script.js';
-export * from './_elements/link.js';
+import size from "lodash/size.js";
+import uniq from "lodash/uniq.js";
+import { By, Key } from "selenium-webdriver";
+export * from "./_elements/select.js";
+export * from "./_elements/input.js";
+export * from "./_elements/radio.js";
+export * from "./_elements/execute_script.js";
+export * from "./_elements/link.js";
 
-import { findElementsByXpath, findElementById, findElementByXpath, findElementByClassName } from './find.js';
-import { scrollToElement } from '#globalActions';
-import { clearMultipleSpace } from '#core/untilities/string.js';
-import { sleep } from './driver-base-actions.js';
+import {
+  findElementsByXpath,
+  findElementById,
+  findElementByXpath,
+  findElementByClassName,
+} from "./find.js";
+import { clearMultipleSpace } from "#core/untilities/string.js";
+import { sleep } from "./driver-base-actions.js";
+import { scrollToElement } from "#core/factories/index.js";
 
 async function getContentElement(driver, className) {
   const el = await driver.findElement(By.className(className));
@@ -127,7 +132,7 @@ async function isElementExist(driver, xpath) {
 
 async function getValueByXpath(driver, xpath) {
   const element = await findElementByXpath(driver, xpath);
-  return await element.getAttribute('value');
+  return await element.getAttribute("value");
 }
 
 async function getAllValueByXpath(driver, xpath) {
@@ -138,7 +143,7 @@ async function getAllValueByXpath(driver, xpath) {
     }
     const data = [];
     for (const index in elements) {
-      const value = await elements[index].getAttribute('value');
+      const value = await elements[index].getAttribute("value");
       data.push(clearMultipleSpace(value));
     }
     return data;
@@ -237,11 +242,15 @@ async function scrollToElementByXpath(driver, xpath) {
 async function isElementDisabledByXpath(driver, xpath) {
   const element = await findElementByXpath(driver, xpath);
 
-  return Boolean(await element.getAttribute('disabled'));
+  return Boolean(await element.getAttribute("disabled"));
 }
 
-async function isExistClassDisabledByXpath(driver, xpath, classDisabled = 'disabled') {
-  const classAttr = await getAttribute(driver, xpath, 'class');
+async function isExistClassDisabledByXpath(
+  driver,
+  xpath,
+  classDisabled = "disabled",
+) {
+  const classAttr = await getAttribute(driver, xpath, "class");
   return classAttr.includes(classDisabled);
 }
 

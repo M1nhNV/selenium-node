@@ -9,13 +9,10 @@
  * https://learn.microsoft.com/en-us/dynamics365/finance/localizations/japan/apac-jpn-import-postal-codes
  */
 
-import { getFilePath, readJPCSV } from '#factories/file.js';
-import { POSTAL_CODE_JP_CSV } from '#constants/file.js';
-import size from 'lodash/size.js';
-import sample from 'lodash/sample.js';
-import random from 'lodash/random.js';
-
-import Papa from 'papaparse';
+import { getFilePath, readJPCSV } from "#factories/file.js";
+import { POSTAL_CODE_JP_CSV } from "#constants/file.js";
+import { size, sample, random } from "lodash";
+import Papa from "papaparse";
 
 const CSV_POSTAL_CODE_PATH = getFilePath(`files/${POSTAL_CODE_JP_CSV}`);
 
@@ -53,7 +50,7 @@ async function initPostalCodeSource() {
 
 function clearFormat(code) {
   if (/[0-9]{3}-[0-9]{4}/.test(code)) {
-    return code.replaceAll('-', '');
+    return code.replaceAll("-", "");
   }
 
   return code;
@@ -70,7 +67,7 @@ function getPostalCode(code) {
 }
 
 async function getInfoPostalCode(code) {
-  if (typeof code === 'string' && code !== '') {
+  if (typeof code === "string" && code !== "") {
     if (size(postalCenter) <= 0) {
       await initPostalCodeSource();
     }
@@ -87,7 +84,7 @@ async function getRandomPostalCodeInvalid(hasDartLine = true) {
   }
 
   let info = {};
-  let postalCode = '';
+  let postalCode = "";
 
   do {
     postalCode = hasDartLine
@@ -109,7 +106,10 @@ async function getRandomPostalCodeValid() {
   return {
     postal_code: {
       full: info.postal_code,
-      parts: [String(info.postal_code).slice(0, 3), String(info.postal_code).slice(3)],
+      parts: [
+        String(info.postal_code).slice(0, 3),
+        String(info.postal_code).slice(3),
+      ],
     },
     state: info.state,
     city: info.city,
@@ -117,4 +117,8 @@ async function getRandomPostalCodeValid() {
   };
 }
 
-export { getInfoPostalCode, getRandomPostalCodeValid, getRandomPostalCodeInvalid };
+export {
+  getInfoPostalCode,
+  getRandomPostalCodeValid,
+  getRandomPostalCodeInvalid,
+};

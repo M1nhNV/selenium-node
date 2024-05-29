@@ -1,7 +1,10 @@
-import { isExistDir, createDir } from '#factories/dir.js';
-import { ABSOLUTE_PATH_RESULT_DIR, ABSOLUTE_PATH_DOWNLOAD_DIR } from '#settings';
-import { configDotenv } from 'dotenv';
-import { getFilePath, isExistFile } from '#factories/file.js';
+import { isExistDir, createDir } from "#factories/dir.js";
+import {
+  ABSOLUTE_PATH_RESULT_DIR,
+  ABSOLUTE_PATH_DOWNLOAD_DIR,
+} from "#settings";
+import { configDotenv } from "dotenv";
+import { getFilePath, isExistFile } from "#factories/file.js";
 
 /**
  * Check that the system settings are working properly before running the test

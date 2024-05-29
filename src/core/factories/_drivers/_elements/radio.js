@@ -1,6 +1,6 @@
-import { findElementsByXpath } from '#factories';
-import uniq from 'lodash/uniq.js';
-import size from 'lodash/size.js';
+import { findElementsByXpath } from "#factories";
+import uniq from "lodash/uniq.js";
+import size from "lodash/size.js";
 
 async function getTextRadioByXpath(driver, xpath) {
   try {

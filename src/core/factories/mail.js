@@ -1,7 +1,5 @@
-import {
-  getLinkResetPasswordFromGmail,
-} from '#adapter/gmail.js';
-import { EMAIL_TYPE } from '#settings';
+import { getLinkResetPasswordFromGmail } from "#adapter/gmail.js";
+import { EMAIL_TYPE } from "#settings";
 
 async function getLinkResetPasswordFromEmail(type = EMAIL_TYPE.GMAIL) {
   switch (type) {

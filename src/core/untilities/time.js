@@ -1,45 +1,45 @@
-import moment from 'moment';
+import moment from "moment";
 
 const getCurrentTimeUTC = () => {
   return moment().utc().toISOString();
 };
 
-function getCurrentDate(format = 'YYYY/MM/DD') {
+function getCurrentDate(format = "YYYY/MM/DD") {
   return moment().format(format);
 }
 
-const convertTime = (time, type = 's') => {
+const convertTime = (time, type = "s") => {
   return `${Math.round(time / 1000)}${type}`;
 };
 
-const getMinDate = (dates, format = 'YYYY/MM/DD') => {
+const getMinDate = (dates, format = "YYYY/MM/DD") => {
   const d = new Date(
     Math.min(
       ...dates.map((el) => {
         console.log(el);
         return new Date(el);
-      })
-    )
+      }),
+    ),
   );
 
   return moment(d).format(format);
 };
 
-const getMaxDate = (dates, format = 'YYYY/MM/DD') => {
+const getMaxDate = (dates, format = "YYYY/MM/DD") => {
   const d = new Date(
     Math.max(
       ...dates.map((el) => {
         return new Date(el);
-      })
-    )
+      }),
+    ),
   );
 
   return moment(d).format(format);
 };
 
-const plusDate = (date, number, format = 'YYYY/MM/DD') => {
+const plusDate = (date, number, format = "YYYY/MM/DD") => {
   const d = new Date(date);
-  return moment(d).add(number, 'd').format(format);
+  return moment(d).add(number, "d").format(format);
 };
 
 const isDateBetween = (date, startDate, endDate) => {
@@ -60,11 +60,15 @@ const filterDateValid = (dates) => {
 };
 
 async function isSameOrBefore(dates = [], target) {
-  return dates.every((date) => moment(new Date(date)).isSameOrBefore(new Date(target)));
+  return dates.every((date) =>
+    moment(new Date(date)).isSameOrBefore(new Date(target)),
+  );
 }
 
 async function isSameOrAfter(dates = [], target) {
-  return dates.every((date) => moment(new Date(date)).isSameOrAfter(new Date(target)));
+  return dates.every((date) =>
+    moment(new Date(date)).isSameOrAfter(new Date(target)),
+  );
 }
 
 export {
