@@ -1,0 +1,3 @@
+const getLinkResetPasswordFromGmail = () => {};
+
+export { getLinkResetPasswordFromGmail };

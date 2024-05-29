@@ -1,0 +1,8 @@
+results/
+mochawesome-report
+.eslintrc
+.mocharc.json
+.prettierrc.json
+package.json
+token.json
+credentials.json
